@@ -12,7 +12,7 @@ export const StockList = () => {
   }
 
   const renderIcon = (change) => {
-    return change > 0 ? <BsFillCaretDownFill/> : <BsFillCaretDownFill/>;
+    return change > 0 ? <BsFillCaretUpFill/> : <BsFillCaretDownFill/>;
   }
 
   useEffect(() => {
