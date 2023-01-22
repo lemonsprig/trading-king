@@ -1,10 +1,13 @@
-import { render } from '@testing-library/react';
-import { useState, useEffect} from 'react';
+
+import { useState, useEffect, useContext} from 'react';
 import finHub from '../apis/finHub';
+import { WatchListContext } from '../context/watchListContext';
 
 export const AutoComplete = () => {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
+  const {addStock} = useContext(WatchListContext);
+
 
   const renderDropdown = () => {
     const dropDownClass = search ? 'show' : null;
@@ -18,7 +21,12 @@ export const AutoComplete = () => {
         }}> 
         {results.map((result) => {
           return (
-            <li key={result.symbol} className='dropdown-item'>{result.description} ({result.symbol})</li>
+            <li key={result.symbol} className='dropdown-item' 
+              onClick={() => {
+                addStock(result.symbol);
+                setSearch("");
+                }}>
+              {result.description} ({result.symbol})</li>
           )
         })}
       </ul>
