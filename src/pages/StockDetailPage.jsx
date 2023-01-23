@@ -20,15 +20,17 @@ export const StockDetailPage = () => {
       const date = new Date();
       const currentTime = Math.floor(date.getTime()/1000);
       let oneDay; 
-      if (date.getDay() === 6) {
+      if (date.getDay() === 0) {
         oneDay = currentTime -2 * 24 * 60 * 60;
-      } else if (date.getDay() === 0) {
+      } else if (date.getDay() === 1) {
         oneDay = currentTime -3 * 24 * 60 * 60;
       } else {
         oneDay = currentTime - 24*60*60;
       }
       const oneWeek = currentTime - 7*24*60*60;
       const oneYear = currentTime - 365*24*60*60;
+      console.log('CT: '+ currentTime);
+      console.log('OD: '+ oneDay);
 
       try {
         const responses = await Promise.all([finHub.get("/stock/candle", {
