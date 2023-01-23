@@ -1,10 +1,18 @@
-import {createContext, useState} from 'react';
+import {createContext, useState, useEffect} from 'react';
 
 export const WatchListContext = createContext();
 
 export const WatchListContextProvider = (props) => {
 
-  const [watchList, setWatchList] = useState(['MSFT', 'AMZN', 'GOOGL']);
+  const [watchList, setWatchList] = useState(  
+    // the question mark 'null coalescing?' checks if the watchlist exists in the ls
+    // before trying to split it
+    localStorage.getItem("watchList")?.split(",") || ['MSFT', 'AMZN', 'GOOGL']
+  );
+
+  useEffect(() => {
+    localStorage.setItem('watchList', watchList);
+  }, [watchList]);
 
   const addStock = (stock) => {
     if(watchList.indexOf(stock) === -1) {
